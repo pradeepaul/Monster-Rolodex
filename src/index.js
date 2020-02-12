@@ -1,18 +1,28 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducer from '../src/reducer/index';
-import App from '../src/App';
-import './index.css';
+import React, { PureComponent } from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
-const store = createStore(
-   reducer,
-   window.__REDUX_DEVTOOLS_EXTENSION__ && 
-   window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-render(
-   <Provider store = {store}>
-      <App />
-   </Provider>, document.getElementById('root')
-)
+import Counter from "./components/Counter";
+import reducers from "./reducers";
+
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center"
+};
+
+class App extends PureComponent {
+  render() {
+    return (
+      <Provider store={createStore(reducers)}>
+        <div style={styles}>
+          <div>
+            <Counter />
+          </div>
+        </div>
+      </Provider>
+    );
+  }
+}
+
+render(<App />, document.getElementById("root"));
